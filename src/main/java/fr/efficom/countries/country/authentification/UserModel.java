@@ -3,13 +3,17 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-
 public class UserModel implements Serializable {
 
     @Column(unique = true)
     private String name;
+    
     @Column
-    private String president;
+    private String email;
+    
+    @Column
+    private String password;
+    
     @Id
     @GeneratedValue
     private Long id;
@@ -22,12 +26,20 @@ public class UserModel implements Serializable {
         this.name = name;
     }
 
-    public String getpresident() {
-        return president;
+    public String getEmail() {
+        return email;
     }
 
-    public void setpresident(String president) {
-        this.president = president;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setId(Long id) {

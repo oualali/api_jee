@@ -23,7 +23,5 @@ public class User {
         
     }
 
-    public void deleteMember(String name){
-
-    }
+ 
 }

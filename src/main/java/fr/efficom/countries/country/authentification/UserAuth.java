@@ -1,5 +1,6 @@
 package fr.efficom.countries.country.authentification;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
@@ -15,6 +16,7 @@ public class UserAuth {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     //login
+    @Path("/me")
     public Response getMembers(){
         return Response.ok(User.getUser()).build();
     }
@@ -23,6 +25,7 @@ public class UserAuth {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
     //creation de compte
+    @Path("/register")
     public Response addMember(UserModel UserModel){
         if (UserModel.getEmail() == null || UserModel.getPassword() == null){
             return Response.status(403).build();
@@ -33,35 +36,14 @@ public class UserAuth {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_JSON)
-    //creation de compte
+    @Path("/logout")
     public Response logout(UserModel UserModel, Request request){
-    	
-    	if(((Object) request).getParameter("logout") != null ){  
-            session.invalidate();
-         
-            
-    }
+    	/*HttpSession session =  request.getSession(false);
+    	if(session!=null)
+    	session.invalidate();*/
+    	return Response.ok("trest").build();
     }
     
-    @DELETE
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/{name}")
-    public Response deleteUser(@PathParam("name") String name){
-        if (name == null || name.length() == 0){
-            return Response.status(403).build();
-        }
-        User.deleteMember(name);
-        return Response.ok(User.getUser().size()).build();
-    }
 
-    @PUT
-    @Produces(MediaType.TEXT_PLAIN)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void deleteMember(UserModel UserModel){
-      /*   if (crewMember.getJob() == null || crewMember.getName() == null){
-            return Response.status(403).build();
-        }
-        crewBean.editMember(crewMember);
-        return Response.ok(crewBean.getCrewMembers().size()).build();*/
-    }
+  
 }
